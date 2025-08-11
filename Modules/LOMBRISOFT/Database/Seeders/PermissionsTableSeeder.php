@@ -290,6 +290,78 @@ class PermissionsTableSeeder extends Seeder
                 'app_id' => $app->id,
             ]
         )->id;
+        /** ============================================
+ *  PERMISOS PARA ALERTAS DE ACTIVIDADES (ADMINISTRADOR)
+ *  ============================================ */
+$permissions_admin[] = Permission::updateOrCreate(
+    ['slug' => 'lombrisoft.admin.activity_alerts.index'],
+    [
+        'name' => 'Acceso a la lista de alertas',
+        'description' => 'Permite acceder a la lista de alertas de actividades',
+        'description_english' => 'Allows access to activity alerts list',
+        'app_id' => $app->id,
+    ]
+)->id;
+
+$permissions_admin[] = Permission::updateOrCreate(
+    ['slug' => 'lombrisoft.admin.activity_alerts.create'],
+    [
+        'name' => 'Crear alertas',
+        'description' => 'Permite crear nuevas alertas para actividades',
+        'description_english' => 'Allows creating new activity alerts',
+        'app_id' => $app->id,
+    ]
+)->id;
+
+$permissions_admin[] = Permission::updateOrCreate(
+    ['slug' => 'lombrisoft.admin.activity_alerts.store'],
+    [
+        'name' => 'Guardar alertas',
+        'description' => 'Permite guardar nuevas alertas para actividades',
+        'description_english' => 'Allows storing new activity alerts',
+        'app_id' => $app->id,
+    ]
+)->id;
+
+$permissions_admin[] = Permission::updateOrCreate(
+    ['slug' => 'lombrisoft.admin.activity_alerts.show'],
+    [
+        'name' => 'Ver detalles de alerta',
+        'description' => 'Permite ver los detalles de una alerta de actividad',
+        'description_english' => 'Allows viewing activity alert details',
+        'app_id' => $app->id,
+    ]
+)->id;
+
+$permissions_admin[] = Permission::updateOrCreate(
+    ['slug' => 'lombrisoft.admin.activity_alerts.edit'],
+    [
+        'name' => 'Editar alertas',
+        'description' => 'Permite editar alertas de actividades',
+        'description_english' => 'Allows editing activity alerts',
+        'app_id' => $app->id,
+    ]
+)->id;
+
+$permissions_admin[] = Permission::updateOrCreate(
+    ['slug' => 'lombrisoft.admin.activity_alerts.update'],
+    [
+        'name' => 'Actualizar alertas',
+        'description' => 'Permite actualizar alertas de actividades',
+        'description_english' => 'Allows updating activity alerts',
+        'app_id' => $app->id,
+    ]
+)->id;
+
+$permissions_admin[] = Permission::updateOrCreate(
+    ['slug' => 'lombrisoft.admin.activity_alerts.destroy'],
+    [
+        'name' => 'Eliminar alertas',
+        'description' => 'Permite eliminar alertas de actividades',
+        'description_english' => 'Allows deleting activity alerts',
+        'app_id' => $app->id,
+    ]
+)->id;
 
 
 

@@ -5,6 +5,7 @@ use Modules\LOMBRISOFT\Http\Controllers\MaterialController;
 use Modules\LOMBRISOFT\Http\Controllers\MaterialMovementController;
 use Modules\LOMBRISOFT\Http\Controllers\BedActivityController;
 use Modules\LOMBRISOFT\Http\Controllers\ReportController;
+use Modules\LOMBRISOFT\Http\Controllers\ActivityAlertController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['lang'])->prefix('lombrisoft')->group(function () {
@@ -40,4 +41,12 @@ Route::middleware(['web'])->group(function () {
     Route::get('reports/word', [ReportController::class, 'exportWord'])->name('reports.word');
     Route::post('reports', [ReportController::class, 'store'])->name('reports.store');
 });
-
+Route::prefix('admin/activity-alerts')->group(function () {
+    Route::get('/', [ActivityAlertController::class, 'index'])->name('lombrisoft.admin.activity_alerts.index');
+    Route::get('/create', [ActivityAlertController::class, 'create'])->name('lombrisoft.admin.activity_alerts.create');
+    Route::post('/store', [ActivityAlertController::class, 'store'])->name('lombrisoft.admin.activity_alerts.store');
+    Route::get('/{id}', [ActivityAlertController::class, 'show'])->name('lombrisoft.admin.activity_alerts.show');
+    Route::get('/{id}/edit', [ActivityAlertController::class, 'edit'])->name('lombrisoft.admin.activity_alerts.edit');
+    Route::put('/{id}', [ActivityAlertController::class, 'update'])->name('lombrisoft.admin.activity_alerts.update');
+    Route::delete('/{id}', [ActivityAlertController::class, 'destroy'])->name('lombrisoft.admin.activity_alerts.destroy');
+});

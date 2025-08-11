@@ -45,7 +45,7 @@
                 {{-- Alimentación --}}
                 @if($columnas['feeding'])
                     <td>{{ $actividad->feeding->tipo_alimento ?? '-' }}</td>
-                    <td>{{ $actividad->feeding->cantidad ?? '-' }}</td>
+                    <td>{{ $actividad->feeding->cantidad_alimento ?? '-' }}</td>
                 @endif
 
                 {{-- Humedad --}}

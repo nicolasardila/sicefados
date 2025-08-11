@@ -214,6 +214,41 @@
                             
                             </ul>
                         </li>
+                        <li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-bell text-orange"></i>
+        <p>
+            Alertas
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('lombrisoft.admin.activity_alerts.create') }}" class="nav-link">
+                <i class="fas fa-plus-circle nav-icon text-orange"></i>
+                <p>Nueva Alerta</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('lombrisoft.admin.activity_alerts.index') }}" class="nav-link">
+                <i class="fas fa-list nav-icon text-orange"></i>
+                <p>Lista de Alertas</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('lombrisoft.admin.activity_alerts.index', ['estado' => 'vencidas']) }}" class="nav-link">
+                <i class="fas fa-exclamation-triangle nav-icon text-red"></i>
+                <p>Alertas Vencidas</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('lombrisoft.admin.activity_alerts.index', ['estado' => 'proximas']) }}" class="nav-link">
+                <i class="fas fa-clock nav-icon text-yellow"></i>
+                <p>Alertas Próximas</p>
+            </a>
+        </li>
+    </ul>
+</li>
                     </ul>
                 </nav>
             </div>
