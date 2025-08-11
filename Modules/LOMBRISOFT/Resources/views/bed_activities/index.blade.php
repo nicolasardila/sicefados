@@ -112,13 +112,13 @@
     data-fecha="{{ $activity->fecha_actividad }}"
     data-hora="{{ $activity->hora_actividad }}"
     data-descripcion="{{ $activity->descripcion ?? 'Sin descripción' }}"
-    data-cantidad-alimento="{{ $activity->cantidad_alimento ?? 'N/A' }}"
-    data-tipo-alimento="{{ $activity->tipo_alimento ?? 'N/A' }}"
-    data-nivel-humedad="{{ $activity->nivel_humedad ?? 'N/A' }}"
-    data-tipo-recoleccion="{{ $activity->tipo_recoleccion ?? 'N/A' }}"
-    data-cantidad-recolectada="{{ $activity->cantidad_recolectada ?? 'N/A' }}"
-    data-ph="{{ $activity->ph ?? 'N/A' }}"
-    data-temperatura="{{ $activity->temperatura ?? 'N/A' }}">
+    data-cantidad-alimento="{{ $activity->feeding->cantidad_alimento ?? 'N/A' }}"
+    data-tipo-alimento="{{ $activity->feeding->tipo_alimento ?? 'N/A' }}"
+    data-nivel-humedad="{{ $activity->moisture->nivel_humedad ?? 'N/A' }}"
+    data-tipo-recoleccion="{{ $activity->harvest->tipo_recoleccion ?? 'N/A' }}"
+    data-cantidad-recolectada="{{ $activity->harvest->cantidad_recolectada ?? 'N/A' }}"
+    data-ph="{{ optional($activity->ph)->ph ?? 'N/A' }}"
+    data-temperatura="{{ $activity->temperature->temperatura ?? 'N/A' }}">
     <i class="fas fa-eye"></i> Ver
 </button>
 
@@ -179,6 +179,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form method="POST" id="editForm" action="{{ route('lombrisoft.admin.bed_activities.update', ['id' => '__ID__']) }}">
+
                 @csrf
                 @method('PUT')
                 <div class="modal-header">
@@ -274,6 +275,8 @@
 </div>
 
 <script>
+    const baseUpdateUrl = "{{ url('admin/bed_activities') }}"; // O la ruta real a tu controlador
+
     document.addEventListener('DOMContentLoaded', function() {
         const editModal = document.getElementById('editModal');
         
@@ -311,7 +314,8 @@
 
             // Actualizar el formulario con la ruta correcta
             const form = document.getElementById('editForm');
-            form.action = form.action.replace('__ID__', id);
+           form.action = form.action.replace('__ID__', id);
+
 
             // Establecer los valores comunes
             document.getElementById('editWormBed').value = cama;
@@ -361,20 +365,21 @@
         });
     }
     // Modal de Visualización
+// Modal de Visualización
 document.getElementById('viewModal').addEventListener('show.bs.modal', function(event) {
     const button = event.relatedTarget;
     const tipo = button.getAttribute('data-tipo');
     
     // Establecer valores básicos
     document.getElementById('viewCama').textContent = button.getAttribute('data-cama');
-    document.getElementById('viewTipo').textContent = tipo;
+    document.getElementById('viewTipo').textContent = button.getAttribute('data-tipo');
     document.getElementById('viewFecha').textContent = button.getAttribute('data-fecha');
     document.getElementById('viewHora').textContent = button.getAttribute('data-hora') || 'No registrada';
-    document.getElementById('viewDescripcion').textContent = button.getAttribute('data-descripcion') || 'Sin descripción';
+    document.getElementById('viewDescripcion').textContent = button.getAttribute('data-descripcion');
 
-    // Contenedor de detalles específicos
+    // Generar detalles específicos según el tipo
     const detailsContainer = document.getElementById('specificDetails');
-    detailsContainer.innerHTML = '';
+    detailsContainer.innerHTML = ''; // Limpiar contenido anterior
 
     const tipoMap = {
         'alimentacion': [
@@ -400,21 +405,22 @@ document.getElementById('viewModal').addEventListener('show.bs.modal', function(
     };
 
     const detalles = tipoMap[tipo] || [];
-
+    
     detalles.forEach(detalle => {
         if (detalle.value && detalle.value !== 'N/A') {
-            const item = document.createElement('li');
-            item.className = 'list-group-item';
-            item.innerHTML = `<strong>${detalle.label}:</strong> ${detalle.value} ${detalle.unit || ''}`;
-            detailsContainer.appendChild(item);
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item';
+            listItem.innerHTML = `<strong>${detalle.label}:</strong> ${detalle.value} ${detalle.unit || ''}`;
+            detailsContainer.appendChild(listItem);
         }
     });
 
+    // Si no hay detalles específicos
     if (detailsContainer.children.length === 0) {
-        const emptyItem = document.createElement('li');
-        emptyItem.className = 'list-group-item text-muted';
-        emptyItem.textContent = 'No hay detalles específicos registrados';
-        detailsContainer.appendChild(emptyItem);
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item text-muted';
+        listItem.textContent = 'No hay detalles específicos registrados';
+        detailsContainer.appendChild(listItem);
     }
 });
 </script>

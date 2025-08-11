@@ -8,8 +8,6 @@ use Modules\LOMBRISOFT\Entities\WormBed;
 
 class BedActivity extends Model
 {
-    use HasFactory;
-
     protected $table = 'bed_activities';
 
     protected $fillable = [
@@ -20,33 +18,41 @@ class BedActivity extends Model
         'hora_actividad',
     ];
 
-    // Relación con cama
+    /* ====================
+       Relaciones
+    ==================== */
+
+    // Relación con la cama
     public function wormBed()
     {
         return $this->belongsTo(WormBed::class, 'worm_bed_id');
     }
 
-    // Relaciones polimorfas o directas a cada tipo de actividad
+    // Alimentación
     public function feeding()
     {
         return $this->hasOne(FeedingActivity::class, 'bed_activity_id');
     }
 
+    // Humedad
     public function moisture()
     {
         return $this->hasOne(MoistureActivity::class, 'bed_activity_id');
     }
 
+    // Recolección
     public function harvest()
     {
         return $this->hasOne(HarvestActivity::class, 'bed_activity_id');
     }
 
+    // pH
     public function ph()
     {
         return $this->hasOne(PhActivity::class, 'bed_activity_id');
     }
 
+    // Temperatura
     public function temperature()
     {
         return $this->hasOne(TemperatureActivity::class, 'bed_activity_id');
